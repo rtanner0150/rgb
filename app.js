@@ -1,3 +1,5 @@
+//variable initialization
+console.log('state 1: ' + document.readyState);
 var numSquares = 6;
 var colors = [];
 var pickedColor;
@@ -15,20 +17,30 @@ var resetPressed = true;
 init();
 
 function init(){
+	//on page load, call setup functions, define session storage var
 	setupModeButtons();
 	setupSquares();
-	var lsScore = localStorage.getItem('score');
-	if( lsScore !== null ){
-		score = lsScore; 
+	// var lsScore = localStorage.getItem('score');
+	// if( lsScore !== null ){
+	// 	score = lsScore; 
+	// 	scoreDisplay.textContent = score;
+	// }
+	// else {
+	// 	localStorage.setItem('score', score); 
+	// }
+	var ssScore = sessionStorage.getItem('score');
+	if( ssScore !== null ){
+		score = ssScore; 
 		scoreDisplay.textContent = score;
 	}
 	else {
-		localStorage.setItem('score', score); 
+		sessionStorage.setItem('score', score); 
 	}
 	reset();
 }
 
 function setupModeButtons(){
+	//add click functions to difficulty buttons, set amt based on difficulty
 	for(var i = 0; i < modeButtons.length; i++){
 		modeButtons[i].addEventListener("click", function(){
 			modeButtons[0].classList.remove("selected");
@@ -59,13 +71,13 @@ function setupSquares(){
 					resetPressed = false;
 				}
 				scoreDisplay.textContent = score;
-				localStorage.setItem('score', score);
+				sessionStorage.setItem('score', score);
 			} else {
 				this.style.background = "#232323";
 				messageDisplay.textContent = "Try Again"
 				score--;
 				scoreDisplay.textContent = score; 
-				localStorage.setItem('score', score);
+				sessionStorage.setItem('score', score);
 			}
 		});
 	}
@@ -73,6 +85,7 @@ function setupSquares(){
 
 
 async function updateColorName(){
+	//match rgb color to named color, add '-ish' if not exact match
 	const regex = /\([^\)]+\)/g; 
 	var rgbColors = pickedColor.match(regex); 
 	const url = "https://www.thecolorapi.com/id?rgb="+rgbColors[0];
@@ -114,6 +127,7 @@ function reset(){
 }
 
 resetButton.addEventListener("click", function(){
+	//add click listener to reset btn
 	reset();
 })
 
@@ -126,6 +140,7 @@ function changeColors(color){
 }
 
 function pickColor(){
+	//color randomizer
 	var random = Math.floor(Math.random() * colors.length);
 	return colors[random];
 }
