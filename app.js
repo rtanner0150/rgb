@@ -20,17 +20,9 @@ function init(){
 	//on page load, call setup functions, define session storage var
 	setupModeButtons();
 	setupSquares();
-	// var lsScore = localStorage.getItem('score');
-	// if( lsScore !== null ){
-	// 	score = lsScore; 
-	// 	scoreDisplay.textContent = score;
-	// }
-	// else {
-	// 	localStorage.setItem('score', score); 
-	// }
 	var ssScore = sessionStorage.getItem('score');
 	if( ssScore !== null ){
-		score = ssScore; 
+		score = Number(ssScore); 
 		scoreDisplay.textContent = score;
 	}
 	else {
@@ -63,7 +55,7 @@ function setupSquares(){
 				updateColorName();
 				//console.log(colorName);
 				messageDisplay.textContent = "Correct!";
-				resetButton.textContent = "Play Again?"
+				resetButton.textContent = "Play Again?" 
 				changeColors(clickedColor);
 				h1.style.background = clickedColor;
 				if(resetPressed){
@@ -74,7 +66,7 @@ function setupSquares(){
 				sessionStorage.setItem('score', score);
 			} else {
 				this.style.background = "#232323";
-				messageDisplay.textContent = "Try Again"
+				messageDisplay.textContent = "Try Again";
 				score--;
 				scoreDisplay.textContent = score; 
 				sessionStorage.setItem('score', score);
